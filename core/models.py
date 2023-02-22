@@ -12,6 +12,7 @@ class Club(models.Model):
     class Meta:
         verbose_name = 'Клуб'
         verbose_name_plural = 'Клубы'
+        ordering = ['name', ]
 
 
 class Team(models.Model):
@@ -19,13 +20,14 @@ class Team(models.Model):
     name = models.CharField(max_length=70, verbose_name='Имя игрока')
     numb = models.PositiveSmallIntegerField(verbose_name='Номер игрока', unique=True)
     position = models.CharField(max_length=50, verbose_name='Позиция игрока')
+    image = models.ImageField(blank=True, null=True, verbose_name='Фото игрока')
 
     def __str__(self):
         return self.club
 
     class Meta:
-        verbose_name = 'Состав'
-        verbose_name_plural = 'Составы'
+        verbose_name = 'Игрок'
+        verbose_name_plural = 'Игроки'
         unique_together = [['club', 'numb']]
 
 
