@@ -55,7 +55,7 @@ class Tour(models.Model):
     tour = models.PositiveSmallIntegerField(verbose_name='Тур', null=True)
     home = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name='Хозяева', related_name='home')
     guest = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name="Гости")
-    date = models.DateTimeField(blank=True, null=True, verbose_name="Дата")
+    date = models.DateField(blank=True, null=True, verbose_name="Дата")
     finished = models.BooleanField(null=True, verbose_name='Завершено')
 
     def __str__(self):
@@ -68,10 +68,9 @@ class Tour(models.Model):
 
 
 class Game(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, null=True, related_name='games')
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, null=True, related_name='details')
     home_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет хозяев')
     guest_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет гостей')
-    date = models.DateTimeField(null=True, blank=True, verbose_name='Дата')
     link = models.CharField(max_length=255, blank=True, null=True)
     red_card = models.PositiveSmallIntegerField(default=0)
     yellow_card = models.PositiveSmallIntegerField(default=0)

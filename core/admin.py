@@ -36,6 +36,7 @@ class ClubAdmin(admin.ModelAdmin):
 
     player_count.short_description = 'Кол-во игроков'
 
+
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
     list_display = ('club', 'name', 'numb')
