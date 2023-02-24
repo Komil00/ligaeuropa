@@ -72,8 +72,10 @@ class Game(models.Model):
     home_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет хозяев')
     guest_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет гостей')
     link = models.CharField(max_length=255, blank=True, null=True)
-    red_card = models.PositiveSmallIntegerField(default=0)
-    yellow_card = models.PositiveSmallIntegerField(default=0)
+    home_red_card = models.PositiveSmallIntegerField(default=0)
+    guest_red_card = models.PositiveSmallIntegerField(default=0)
+    home_yellow_card = models.PositiveSmallIntegerField(default=0)
+    guest_yellow_card = models.PositiveSmallIntegerField(default=0)
 
 
 class PlayerGoal(models.Model):

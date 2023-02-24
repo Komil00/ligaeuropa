@@ -11,7 +11,7 @@ class ClubForTourListSerializer(serializers.ModelSerializer):
 class GameListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('home_point', 'guest_point', 'red_card', 'yellow_card', 'link')
+        exclude = ('tour', )
 
 
 class TourListSerializer(serializers.ModelSerializer):
@@ -29,8 +29,11 @@ class TourListSerializer(serializers.ModelSerializer):
             return {
                 'home_point': game.home_point,
                 'guest_point': game.guest_point,
-                'red_card': game.red_card,
-                'yellow_card': game.yellow_card,
+                'link': game.link,
+                'home_red_card': game.home_red_card,
+                'guest_red_card': game.guest_red_card,
+                'home_yellow_card': game.home_yellow_card,
+                'guest_yellow_card': game.guest_yellow_card,
             }
         return {}
 
