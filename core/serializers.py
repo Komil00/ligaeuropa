@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Tour, Club, TournamentTable, Game
+from .models import Tour, Club, TournamentTable, Game, AboutPlayer, Player
 
 
 class ClubForTourListSerializer(serializers.ModelSerializer):
@@ -44,3 +44,15 @@ class TournamentTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = TournamentTable
         fields = "__all__"
+
+class PlayerSerializers(serializers.ModelSerializer):
+    club = ClubForTourListSerializer()
+    class Meta:
+        model = Player
+        fields = '__all__'
+
+class AboutPlayerSerializers(serializers.ModelSerializer):
+    player = PlayerSerializers()
+    class Meta:
+        model = AboutPlayer
+        fields = '__all__'

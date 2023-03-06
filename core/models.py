@@ -15,21 +15,28 @@ class Club(models.Model):
         ordering = ['name', ]
 
 
-class Team(models.Model):
+class Player(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
-    name = models.CharField(max_length=70, verbose_name='Имя игрока')
-    numb = models.PositiveSmallIntegerField(verbose_name='Номер игрока', unique=True)
-    position = models.CharField(max_length=50, verbose_name='Позиция игрока')
-    image = models.ImageField(blank=True, null=True, verbose_name='Фото игрока')
+    first_name = models.CharField(max_length=70, verbose_name='Имя игрока')
+    last_name = models.CharField(max_length=70, verbose_name='Фамилия игрока')
+    numb = models.PositiveSmallIntegerField(verbose_name='Номер игрока')
+    gif = models.FileField( upload_to='media/gif', verbose_name='Gif игрока')
+    image = models.ImageField( upload_to='media/image', blank=True, null=True, verbose_name='Фото игрока')
 
     def __str__(self):
-        return self.club
+        return self.first_name
 
     class Meta:
         verbose_name = 'Игрок'
         verbose_name_plural = 'Игроки'
         unique_together = [['club', 'numb']]
 
+Natijalar = (
+    ('Win', 'win'),
+    ('Draw', 'draw'),
+    ('Lose', 'lose'),
+
+)
 
 class TournamentTable(models.Model):
     club = models.OneToOneField(Club, on_delete=models.CASCADE, verbose_name='Клуб')
@@ -41,9 +48,14 @@ class TournamentTable(models.Model):
     missed_goals = models.PositiveSmallIntegerField(default=0, verbose_name='ПМ')
     diff = models.PositiveSmallIntegerField(default=0, verbose_name='РМ')
     point = models.PositiveSmallIntegerField(default=0, verbose_name='О')
+    oxirgi_1 = models.CharField(choices=Natijalar, default='Draw', max_length=15)
+    oxirgi_2 = models.CharField(choices=Natijalar, default='Draw', max_length=15)
+    oxirgi_3 = models.CharField(choices=Natijalar, default='Draw', max_length=15)
+    oxirgi_4 = models.CharField(choices=Natijalar, default='Draw', max_length=15)
+    oxirgi_5 = models.CharField(choices=Natijalar, default='Draw', max_length=15)
 
     def __str__(self):
-        return self.club
+        return self.club.name
 
     class Meta:
         verbose_name = 'Турнирная таблица'
@@ -85,3 +97,23 @@ class PlayerGoal(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class AboutPlayer(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    age = models.PositiveSmallIntegerField(verbose_name='Возраст игрока')
+    yellow_cards = models.PositiveSmallIntegerField(verbose_name='Желтая карточка')
+    red_cards = models.PositiveSmallIntegerField(verbose_name='Красная карточка')
+    goals = models.PositiveBigIntegerField(verbose_name='Количество голов')
+    force = models.PositiveIntegerField(verbose_name='Сила')
+    technique = models.PositiveIntegerField(verbose_name='Техника')
+    pas = models.PositiveIntegerField(verbose_name='Пас')
+
+    def __str__(self):
+        return self.player.first_name
+
+    class Meta:
+        verbose_name = 'Об игроке'
+        verbose_name_plural = 'Об игроке'
+
+
