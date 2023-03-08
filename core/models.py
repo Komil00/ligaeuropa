@@ -22,6 +22,10 @@ class Player(models.Model):
     numb = models.PositiveSmallIntegerField(verbose_name='Номер игрока')
     gif = models.FileField( upload_to='media/gif', verbose_name='Gif игрока')
     image = models.ImageField( upload_to='media/image', blank=True, null=True, verbose_name='Фото игрока')
+    like = models.BooleanField(null=True, blank=True)
+    dislike = models.BooleanField(null=True, blank=True)
+
+
 
     def __str__(self):
         return self.first_name
@@ -79,24 +83,24 @@ class Tour(models.Model):
         ordering = ['tour']
 
 
-class Game(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, null=True, related_name='details')
-    home_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет хозяев')
-    guest_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет гостей')
-    link = models.CharField(max_length=255, blank=True, null=True)
-    home_red_card = models.PositiveSmallIntegerField(default=0)
-    guest_red_card = models.PositiveSmallIntegerField(default=0)
-    home_yellow_card = models.PositiveSmallIntegerField(default=0)
-    guest_yellow_card = models.PositiveSmallIntegerField(default=0)
+# class Game(models.Model):
+#     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, null=True, related_name='details')
+#     home_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет хозяев')
+#     guest_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет гостей')
+#     link = models.CharField(max_length=255, blank=True, null=True)
+#     home_red_card = models.PositiveSmallIntegerField(default=0)
+#     guest_red_card = models.PositiveSmallIntegerField(default=0)
+#     home_yellow_card = models.PositiveSmallIntegerField(default=0)
+#     guest_yellow_card = models.PositiveSmallIntegerField(default=0)
 
 
-class PlayerGoal(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    name = models.CharField(max_length=70, verbose_name='Имя игрока')
-    time = models.PositiveSmallIntegerField(default=0, verbose_name='Время гола')
+# class PlayerGoal(models.Model):
+#     game = models.ForeignKey(Game, on_delete=models.CASCADE)
+#     name = models.CharField(max_length=70, verbose_name='Имя игрока')
+#     time = models.PositiveSmallIntegerField(default=0, verbose_name='Время гола')
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
 class AboutPlayer(models.Model):
