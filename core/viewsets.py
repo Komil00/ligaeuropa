@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
+from rest_framework import viewsets ,permissions
 from .models import Matches, TournamentTable, AboutPlayer, Game,\
       PlayerGoal, News
 from .serializers import MatchesListSerializer, TournamentTableSerializer,\
@@ -39,6 +39,12 @@ class NewsViewSet(viewsets.ModelViewSet):
     queryset = News.objects.all()
     serializer_class = NewsListSerializers
     http_method_names = ('get', 'put', 'delete')
+    # permission_classes = (permissions.AllowAny)
 
-    # def get_serializer_class(self):
-    #     if 
+    
+    def get_permissions(self):
+        if self.action == 'list':
+            permission_classes = [permissions.AllowAny]
+        else:
+            permission_classes = [permissions.IsAdminUser]
+        return [permission() for permission in permission_classes]
