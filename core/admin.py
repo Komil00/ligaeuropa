@@ -59,13 +59,19 @@ class TournamentTableAdmin(admin.ModelAdmin):
 
 @admin.register(Matches)
 class TourAdmin(admin.ModelAdmin):
-    list_display = ('tour', 'home', 'guest', 'finished')
-    list_display_links = ('tour', 'home', 'guest')
+    list_display = ('tour', 'home', 'guest', 'date', 'finished')
+    list_display_links = ('tour', 'home', 'guest', 'date')
     inlines = [GameInline, ]
     search_fields = ('home', 'guest')
-    list_filter = ('home', 'guest', 'finished')
+    list_filter = ('home', 'guest', 'finished', 'date')
 
-admin.site.register(Game)
+@admin.register(Game)
+class GameAdmin(admin.ModelAdmin):
+    list_display = ['tour', 'home_point', 'guest_point']
+    list_display_links = list_display
+    search_fields = ['tour']
+    list_filter = ['tour']
+
 @admin.register(PlayerGoal)
 class PlayerGoalAdmin(admin.ModelAdmin):
     list_display = ['player', 'game', 'time']

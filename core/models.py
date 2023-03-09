@@ -71,7 +71,7 @@ class Matches(models.Model):
     tour = models.PositiveSmallIntegerField(verbose_name='Тур', null=True)
     home = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name='Хозяева', related_name='home')
     guest = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name="Гости")
-    # date = models.DateTimeField(blank=True, null=True, verbose_name="Дата")
+    date = models.DateField(blank=True, null=True, verbose_name="Дата")
     finished = models.BooleanField(null=True, verbose_name='Завершено')
 
     def __str__(self):
@@ -80,7 +80,7 @@ class Matches(models.Model):
     class Meta:
         verbose_name = 'Матч'
         verbose_name_plural = 'Матчи'
-        ordering = ['tour']
+        ordering = ['date']
 
 
 
