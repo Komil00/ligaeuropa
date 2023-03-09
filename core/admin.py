@@ -27,13 +27,15 @@ class ClubAdmin(admin.ModelAdmin):
     inlines = [PlayerInline, ]
 
     def image_tag(self, obj):
+        from django.utils.html import format_html
         if obj.icon:
-            return mark_safe(f'<img src="{obj.icon}" width="170" height="150" />')
+            return format_html('<img src="{}" width="100" height="80" />'.format(obj.icon.url))
         return ''
 
     image_tag.short_description = 'Эмблема'
 
     def player_count(self, obj):
+        print(obj)
         return Player.objects.filter(club=obj.id).count()
 
     player_count.short_description = 'Кол-во игроков'
