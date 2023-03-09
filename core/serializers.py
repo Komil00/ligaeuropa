@@ -11,11 +11,26 @@ class ClubForTourListSerializer(serializers.ModelSerializer):
 class TourListSerializer(serializers.ModelSerializer):
     home = ClubForTourListSerializer(read_only=True)
     guest = ClubForTourListSerializer(read_only=True)
-    # details = serializers.SerializerMethodField()
+    details = serializers.SerializerMethodField()
 
     class Meta:
         model = Tour
         fields = '__all__'
+
+    def get_details(self, detail):
+        if Game.objects.filter(tour=detail.id).exists():
+            game = Game.objects.get(tour=detail.id)
+            return {
+                'tour': game.tour.tour,
+                'home_point': game.home_point,
+                'guest_point': game.guest_point,
+                'link': game.link,
+                'home_red_card': game.home_red_card,
+                'guest_red_card': game.guest_red_card,
+                'home_yellow_card': game.home_yellow_card,
+                'guest_yellow_card': game.guest_yellow_card,
+            }
+        return {}
 
 class GameListSerializer(serializers.ModelSerializer):
     tour = TourListSerializer()
@@ -23,19 +38,19 @@ class GameListSerializer(serializers.ModelSerializer):
         model = Game
         fields = '__all__'
 
-    # def get_details(self, detail):
-    #     if Game.objects.filter(tour=detail.id).exists():
-    #         game = Game.objects.get(tour=detail.id)
-    #         return {
-    #             'home_point': game.home_point,
-    #             'guest_point': game.guest_point,
-    #             'link': game.link,
-    #             'home_red_card': game.home_red_card,
-    #             'guest_red_card': game.guest_red_card,
-    #             'home_yellow_card': game.home_yellow_card,
-    #             'guest_yellow_card': game.guest_yellow_card,
-    #         }
-    #     return {}
+    def get_details(self, detail):
+        if Game.objects.filter(tour=detail.id).exists():
+            game = Game.objects.get(tour=detail.id)
+            return {
+                'home_point': game.home_point,
+                'guest_point': game.guest_point,
+                'link': game.link,
+                'home_red_card': game.home_red_card,
+                'guest_red_card': game.guest_red_card,
+                'home_yellow_card': game.home_yellow_card,
+                'guest_yellow_card': game.guest_yellow_card,
+            }
+        return {}
 
 
 class TournamentTableSerializer(serializers.ModelSerializer):
