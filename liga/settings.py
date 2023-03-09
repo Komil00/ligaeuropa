@@ -35,17 +35,23 @@ INSTALLED_APPS = [
     'rest_framework',
     'core',
     'django_filters',
+    'drf_yasg',
+    "debug_toolbar", # toolbar
+
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
+    "corsheaders.middleware.CorsMiddleware", #cors
     "django.middleware.common.CommonMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  ## toolbar
+    
+
 ]
 
 ROOT_URLCONF = 'liga.urls'
@@ -62,12 +68,19 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'staticfiles': 'django.templatetags.static', # agar bumasa swagger ishlamaydi
+            }
         },
     },
 ]
 
 WSGI_APPLICATION = 'liga.wsgi.application'
 
+
+INTERNAL_IPS = [
+    "127.0.0.1",   ######## for debug_tools
+]
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
