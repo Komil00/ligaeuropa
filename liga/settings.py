@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'core',
     'django_filters',
     'drf_yasg',
-    "debug_toolbar", # toolbar
+    # "debug_toolbar", # toolbar
 
 ]
 
@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",  ## toolbar
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",  ## toolbar
     
 
 ]
@@ -78,9 +78,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'liga.wsgi.application'
 
 
-INTERNAL_IPS = [
-    "127.0.0.1",   ######## for debug_tools
-]
+# INTERNAL_IPS = [
+#     "127.0.0.1",   ######## for debug_tools
+# ]
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
