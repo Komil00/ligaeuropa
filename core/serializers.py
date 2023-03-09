@@ -15,8 +15,8 @@ class MatchesListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Matches
-        # fields = '__all__'
-        exclude = ['date'] 
+        fields = '__all__'
+        # exclude = ['date'] 
 
     def get_details(self, detail):
         if Game.objects.filter(tour=detail.id).exists():

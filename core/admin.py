@@ -59,11 +59,11 @@ class TournamentTableAdmin(admin.ModelAdmin):
 
 @admin.register(Matches)
 class TourAdmin(admin.ModelAdmin):
-    list_display = ('tour', 'home', 'guest', 'date', 'finished')
-    list_display_links = ('tour', 'home', 'guest', 'date')
+    list_display = ('tour', 'home', 'guest', 'finished')
+    list_display_links = ('tour', 'home', 'guest')
     inlines = [GameInline, ]
     search_fields = ('home', 'guest')
-    list_filter = ('home', 'guest', 'finished', 'date')
+    list_filter = ('home', 'guest', 'finished')
 
 admin.site.register(Game)
 @admin.register(PlayerGoal)
