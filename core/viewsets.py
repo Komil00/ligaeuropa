@@ -6,7 +6,7 @@ from .serializers import MatchesListSerializer, TournamentTableSerializer,\
 
 
 class MatchesViewSet(viewsets.ModelViewSet):
-    queryset = Matches.objects.all()
+    queryset = Matches.objects.all().order_by('finished')
     serializer_class = MatchesListSerializer
     http_method_names = ('get', )
     filter_backends = [DjangoFilterBackend, ]
