@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Player, Club, TournamentTable, Matches, Game, PlayerGoal, AboutPlayer
+from .models import News, Player, Club, TournamentTable, Matches, Game, PlayerGoal, AboutPlayer
 
 
 # Register your models here.
@@ -96,3 +96,18 @@ class AboutPlayerAdmin(admin.ModelAdmin):
     @admin.display(description='Club Name')
     def get_author_club_name(self, obj):
         return obj.player.club.name
+    
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'image_tag', 'info', 'interview_author', 'date']
+    list_display_links = ['title', 'image_tag', 'interview_author', 'date']
+    search_fields = ['title', 'interview_author', 'date']
+    list_filter = ['title', 'interview_author', 'date']
+
+    def image_tag(self, obj):
+        from django.utils.html import format_html
+        if obj.image:
+            return format_html('<img src="{}" width="100" height="80" />'.format(obj.image.url))
+        return ''
+
+    image_tag.short_description = 'Фото'

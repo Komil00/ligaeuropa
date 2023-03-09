@@ -128,4 +128,16 @@ class AboutPlayer(models.Model):
         verbose_name = 'Об игроке'
         verbose_name_plural = 'Об игроке'
 
+class News(models.Model):
+    image = models.ImageField(upload_to='media/images/')
+    title = models.CharField(max_length=500)
+    info = models.TextField()
+    interview_author = models.CharField(max_length=300)
+    date = models.DateField()
 
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Новости'
+        verbose_name_plural = 'Новости'
