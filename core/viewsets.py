@@ -1,7 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
-from .models import Tour, TournamentTable, AboutPlayer
-from .serializers import TourListSerializer, TournamentTableSerializer, AboutPlayerSerializers
+from .models import Tour, TournamentTable, AboutPlayer, Game, PlayerGoal
+from .serializers import TourListSerializer, TournamentTableSerializer,\
+      AboutPlayerSerializers, GameListSerializer, PlayerGoalSerializers
 
 
 class TourViewSet(viewsets.ModelViewSet):
@@ -20,4 +21,14 @@ class TournamentTableViewSet(viewsets.ModelViewSet):
 class AboutPlayerViewSet(viewsets.ModelViewSet):
     queryset = AboutPlayer.objects.all()
     serializer_class = AboutPlayerSerializers
+    http_method_names = ('get')
+
+class GamesViewSet(viewsets.ModelViewSet):
+    queryset = Game.objects.all()
+    serializer_class = GameListSerializer
+    http_method_names = ('get')
+
+class PlayerGoalViewSet(viewsets.ModelViewSet):
+    queryset = PlayerGoal.objects.all()
+    serializer_class = PlayerGoalSerializers
     http_method_names = ('get')

@@ -1,17 +1,11 @@
 from rest_framework import serializers
-from .models import Tour, Club, TournamentTable, AboutPlayer, Player
+from .models import Tour, Club, TournamentTable, Game, AboutPlayer, Player, PlayerGoal
 
 
 class ClubForTourListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Club
         fields = '__all__'
-
-
-# class GameListSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Game
-#         exclude = ('tour', )
 
 
 class TourListSerializer(serializers.ModelSerializer):
@@ -21,6 +15,12 @@ class TourListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tour
+        fields = '__all__'
+
+class GameListSerializer(serializers.ModelSerializer):
+    tour = TourListSerializer()
+    class Meta:
+        model = Game
         fields = '__all__'
 
     # def get_details(self, detail):
@@ -55,4 +55,22 @@ class AboutPlayerSerializers(serializers.ModelSerializer):
     player = PlayerSerializers()
     class Meta:
         model = AboutPlayer
+        fields = '__all__'
+
+class PlayerPlayerGoalSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Player
+        fields = ['first_name', 'last_name']
+
+class GamePlayerGoalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game
+        fields = ['tour']
+
+class PlayerGoalSerializers(serializers.ModelSerializer):
+    player = PlayerPlayerGoalSerializers()
+    game = GamePlayerGoalSerializer()
+
+    class Meta:
+        model = PlayerGoal
         fields = '__all__'

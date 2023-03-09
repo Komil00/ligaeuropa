@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Player, Club, TournamentTable, Tour, AboutPlayer
+from .models import Player, Club, TournamentTable, Tour, Game, PlayerGoal, AboutPlayer
 
 
 # Register your models here.
@@ -45,10 +45,10 @@ class PlayerAdmin(admin.ModelAdmin):
     list_display_links = ('first_name','club',  'numb')
 
 
-# class GameInline(admin.StackedInline):
-#     model = Game
-#     extra = 0
-#     max_num = 1
+class GameInline(admin.StackedInline):
+    model = Game
+    extra = 0
+    max_num = 1
 
 
 @admin.register(TournamentTable)
@@ -61,14 +61,17 @@ class TournamentTableAdmin(admin.ModelAdmin):
 class TourAdmin(admin.ModelAdmin):
     list_display = ('tour', 'home', 'guest', 'date', 'finished')
     list_display_links = ('tour', 'home', 'guest', 'date')
-    # inlines = [GameInline, ]
+    inlines = [GameInline, ]
     search_fields = ('home', 'guest')
     list_filter = ('home', 'guest', 'finished', 'date')
 
-# admin.site.register(Game)
-# admin.site.register(PlayerGoal)
-
-# admin.site.register(AboutPlayer)
+admin.site.register(Game)
+@admin.register(PlayerGoal)
+class PlayerGoalAdmin(admin.ModelAdmin):
+    list_display = ['player', 'game', 'time']
+    list_display_links = list_display
+    search_fields = ['player', 'game']
+    list_filter = ['game', 'player']
 
 @admin.register(AboutPlayer)
 class AboutPlayerAdmin(admin.ModelAdmin):

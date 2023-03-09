@@ -64,43 +64,51 @@ class TournamentTable(models.Model):
     class Meta:
         verbose_name = 'Турнирная таблица'
         verbose_name_plural = 'Турнирная таблица'
-        ordering = ['-point', 'club__name']
+        ordering = ['-point']
 
 
 class Tour(models.Model):
     tour = models.PositiveSmallIntegerField(verbose_name='Тур', null=True)
     home = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name='Хозяева', related_name='home')
     guest = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name="Гости")
-    date = models.DateField(blank=True, null=True, verbose_name="Дата")
+    date = models.DateTimeField(blank=True, null=True, verbose_name="Дата")
     finished = models.BooleanField(null=True, verbose_name='Завершено')
 
     def __str__(self):
-        return f'{self.home} vs {self.guest}'
-
+        return f'{self.home } vs { self.guest}'
+    
     class Meta:
         verbose_name = 'Матч'
         verbose_name_plural = 'Матчи'
         ordering = ['tour']
 
 
-# class Game(models.Model):
-#     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, null=True, related_name='details')
-#     home_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет хозяев')
-#     guest_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет гостей')
-#     link = models.CharField(max_length=255, blank=True, null=True)
-#     home_red_card = models.PositiveSmallIntegerField(default=0)
-#     guest_red_card = models.PositiveSmallIntegerField(default=0)
-#     home_yellow_card = models.PositiveSmallIntegerField(default=0)
-#     guest_yellow_card = models.PositiveSmallIntegerField(default=0)
+
+class Game(models.Model):
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, null=True, related_name='details')
+    home_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет хозяев')
+    guest_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет гостей')
+    link = models.CharField(max_length=255, blank=True, null=True)
+    home_red_card = models.PositiveSmallIntegerField(default=0)
+    guest_red_card = models.PositiveSmallIntegerField(default=0)
+    home_yellow_card = models.PositiveSmallIntegerField(default=0)
+    guest_yellow_card = models.PositiveSmallIntegerField(default=0)
+
+    def __str__(self) -> str:
+        return f'{self.tour.home.name } vs {self.tour.guest.name}'
+    class Meta:
+        verbose_name = 'Отчет о матче'
+        verbose_name_plural = 'Отчет о матчи'
 
 
-# class PlayerGoal(models.Model):
-#     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-#     name = models.CharField(max_length=70, verbose_name='Имя игрока')
-#     time = models.PositiveSmallIntegerField(default=0, verbose_name='Время гола')
+class PlayerGoal(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    time = models.DateTimeField(verbose_name='Время гола')
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.player.first_name
+    
 
 
 class AboutPlayer(models.Model):
