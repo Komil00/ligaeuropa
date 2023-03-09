@@ -1,13 +1,13 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
-from .models import Tour, TournamentTable, AboutPlayer, Game, PlayerGoal
-from .serializers import TourListSerializer, TournamentTableSerializer,\
+from .models import Matches, TournamentTable, AboutPlayer, Game, PlayerGoal
+from .serializers import MatchesListSerializer, TournamentTableSerializer,\
       AboutPlayerSerializers, GameListSerializer, PlayerGoalSerializers
 
 
-class TourViewSet(viewsets.ModelViewSet):
-    queryset = Tour.objects.all()
-    serializer_class = TourListSerializer
+class MatchesViewSet(viewsets.ModelViewSet):
+    queryset = Matches.objects.all()
+    serializer_class = MatchesListSerializer
     http_method_names = ('get', )
     filter_backends = [DjangoFilterBackend, ]
     filterset_fields = ('tour', 'home', 'guest')

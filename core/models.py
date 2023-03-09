@@ -67,7 +67,7 @@ class TournamentTable(models.Model):
         ordering = ['-point']
 
 
-class Tour(models.Model):
+class Matches(models.Model):
     tour = models.PositiveSmallIntegerField(verbose_name='Тур', null=True)
     home = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name='Хозяева', related_name='home')
     guest = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name="Гости")
@@ -85,7 +85,7 @@ class Tour(models.Model):
 
 
 class Game(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, null=True, related_name='details')
+    tour = models.ForeignKey(Matches, on_delete=models.CASCADE, null=True, related_name='details')
     home_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет хозяев')
     guest_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет гостей')
     link = models.CharField(max_length=255, blank=True, null=True)

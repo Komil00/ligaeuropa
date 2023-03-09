@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Player, Club, TournamentTable, Tour, Game, PlayerGoal, AboutPlayer
+from .models import Player, Club, TournamentTable, Matches, Game, PlayerGoal, AboutPlayer
 
 
 # Register your models here.
@@ -57,7 +57,7 @@ class TournamentTableAdmin(admin.ModelAdmin):
     list_display_links = ('club', 'game', 'win', 'draw', 'lose', 'goals', 'missed_goals', 'diff', 'point')
 
 
-@admin.register(Tour)
+@admin.register(Matches)
 class TourAdmin(admin.ModelAdmin):
     list_display = ('tour', 'home', 'guest', 'date', 'finished')
     list_display_links = ('tour', 'home', 'guest', 'date')

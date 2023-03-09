@@ -1,10 +1,10 @@
 from rest_framework.routers import DefaultRouter
-from core.viewsets import TourViewSet, TournamentTableViewSet,\
+from core.viewsets import MatchesViewSet, TournamentTableViewSet,\
       AboutPlayerViewSet, GamesViewSet, PlayerGoalViewSet
 
 router = DefaultRouter()
 
-router.register('tour', TourViewSet, basename='tour')
+router.register('matches', MatchesViewSet, basename='matches')
 router.register('table', TournamentTableViewSet, basename='tournament-table')
 router.register('aboutplayer', AboutPlayerViewSet, basename='aboutplayer')
 # router.register('games', GamesViewSet, basename='games')

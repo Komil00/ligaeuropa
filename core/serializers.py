@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Tour, Club, TournamentTable, Game, AboutPlayer, Player, PlayerGoal
+from .models import Matches, Club, TournamentTable, Game, AboutPlayer, Player, PlayerGoal
 
 
 class ClubForTourListSerializer(serializers.ModelSerializer):
@@ -8,14 +8,15 @@ class ClubForTourListSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class TourListSerializer(serializers.ModelSerializer):
+class MatchesListSerializer(serializers.ModelSerializer):
     home = ClubForTourListSerializer(read_only=True)
     guest = ClubForTourListSerializer(read_only=True)
     details = serializers.SerializerMethodField()
 
     class Meta:
-        model = Tour
-        fields = '__all__'
+        model = Matches
+        # fields = '__all__'
+        exclude = ['date'] 
 
     def get_details(self, detail):
         if Game.objects.filter(tour=detail.id).exists():
@@ -33,7 +34,7 @@ class TourListSerializer(serializers.ModelSerializer):
         return {}
 
 class GameListSerializer(serializers.ModelSerializer):
-    tour = TourListSerializer()
+    tour = MatchesListSerializer()
     class Meta:
         model = Game
         fields = '__all__'
