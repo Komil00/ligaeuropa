@@ -101,14 +101,16 @@ class Game(models.Model):
         verbose_name_plural = 'Отчет о матчи'
 
 
-class PlayerGoal(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
-    time = models.DateTimeField(verbose_name='Время гола')
-
+class InfoMatch(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='infomatch_game')
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='infomatch_player')
+    time = models.DateField(verbose_name='Время гола')
+    goal_point = models.IntegerField(null=True, blank=True)
+    red_card = models.IntegerField(null=True, blank=True)
+    yellow_card = models.IntegerField(null=True, blank=True)
+      
     def __str__(self):
-        return self.player.first_name
-    
+        return f'{self.game.tour.home.name } vs {self.game.tour.guest.name}'
 
 
 class AboutPlayer(models.Model):

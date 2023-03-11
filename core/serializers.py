@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Matches, Club, News, TournamentTable, Game, AboutPlayer, Player, PlayerGoal
+from .models import InfoMatch, Matches, Club, News, TournamentTable, Game, AboutPlayer, Player
 
 
 class ClubForTourListSerializer(serializers.ModelSerializer):
@@ -83,12 +83,12 @@ class GamePlayerGoalSerializer(serializers.ModelSerializer):
         model = Game
         fields = ['tour']
 
-class PlayerGoalSerializers(serializers.ModelSerializer):
+class InfoMatchSerializers(serializers.ModelSerializer):
     player = PlayerPlayerGoalSerializers()
     game = GamePlayerGoalSerializer()
 
     class Meta:
-        model = PlayerGoal
+        model = InfoMatch
         fields = '__all__'
 
 class NewsPutDeleteSerializer(serializers.ModelSerializer):

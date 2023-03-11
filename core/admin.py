@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import News, Player, Club, TournamentTable, Matches, Game, PlayerGoal, AboutPlayer
+from .models import News, Player, Club, TournamentTable, Matches, Game, AboutPlayer, InfoMatch
 
 
 # Register your models here.
@@ -74,12 +74,7 @@ class GameAdmin(admin.ModelAdmin):
     search_fields = ['tour']
     list_filter = ['tour']
 
-@admin.register(PlayerGoal)
-class PlayerGoalAdmin(admin.ModelAdmin):
-    list_display = ['player', 'game', 'time']
-    list_display_links = list_display
-    search_fields = ['player', 'game']
-    list_filter = ['game', 'player']
+admin.site.register(InfoMatch)
 
 @admin.register(AboutPlayer)
 class AboutPlayerAdmin(admin.ModelAdmin):

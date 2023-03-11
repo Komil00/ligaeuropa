@@ -1,10 +1,9 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets ,permissions
-from .models import Matches, TournamentTable, AboutPlayer, Game,\
-      PlayerGoal, News
+from .models import Matches, TournamentTable, AboutPlayer, Game, News, InfoMatch
 from .serializers import MatchesListSerializer, TournamentTableSerializer,\
-      AboutPlayerSerializers, GameListSerializer, PlayerGoalSerializers,\
-      NewsPutDeleteSerializer, NewsListSerializers
+      AboutPlayerSerializers, GameListSerializer,\
+      NewsPutDeleteSerializer, NewsListSerializers, InfoMatchSerializers
 
 
 class MatchesViewSet(viewsets.ModelViewSet):
@@ -30,9 +29,9 @@ class GamesViewSet(viewsets.ModelViewSet):
     serializer_class = GameListSerializer
     http_method_names = ('get')
 
-class PlayerGoalViewSet(viewsets.ModelViewSet):
-    queryset = PlayerGoal.objects.all()
-    serializer_class = PlayerGoalSerializers
+class InfoMatchViewSet(viewsets.ModelViewSet):
+    queryset = InfoMatch.objects.all()
+    serializer_class = InfoMatchSerializers
     http_method_names = ('get')
 
 class NewsViewSet(viewsets.ModelViewSet):
