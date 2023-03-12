@@ -104,10 +104,11 @@ class Game(models.Model):
 class InfoMatch(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='infomatch_game')
     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='infomatch_player')
-    time = models.DateField(verbose_name='Время гола')
+    date = models.DateField(verbose_name='Время гола')
     goal_point = models.IntegerField(null=True, blank=True)
     red_card = models.IntegerField(null=True, blank=True)
     yellow_card = models.IntegerField(null=True, blank=True)
+    player_command = models.ForeignKey(Club, on_delete=models.CASCADE)
       
     def __str__(self):
         return f'{self.game.tour.home.name } vs {self.game.tour.guest.name}'

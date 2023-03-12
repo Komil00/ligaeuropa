@@ -83,13 +83,26 @@ class GamePlayerGoalSerializer(serializers.ModelSerializer):
         model = Game
         fields = ['tour']
 
+class ClubForInfoListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Club
+        fields = ['name']
+
+
 class InfoMatchSerializers(serializers.ModelSerializer):
     player = PlayerPlayerGoalSerializers()
     game = GamePlayerGoalSerializer()
+    player_command = ClubForInfoListSerializer()
 
     class Meta:
         model = InfoMatch
         fields = '__all__'
+
+    # def to_representation(self, instance):
+    #     representation = super().to_representation(instance)
+    #     representation['player_command'] = instance.player.()
+    #     return representation
+    
 
 class NewsPutDeleteSerializer(serializers.ModelSerializer):
     class Meta:
