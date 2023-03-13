@@ -66,13 +66,17 @@ class TournamentTable(models.Model):
         verbose_name_plural = 'Турнирная таблица'
         ordering = ['-point']
 
+Holat = (
+    ('да', 'да'),
+    ('нет', 'нет'),
 
+)
 class Matches(models.Model):
     tour = models.PositiveSmallIntegerField(verbose_name='Тур', null=True)
     home = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name='Хозяева', related_name='home')
     guest = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name="Гости")
     date = models.DateField(blank=True, null=True, verbose_name="Дата")
-    finished = models.BooleanField(null=True, verbose_name='Завершено')
+    finished = models.CharField(max_length=30, choices=Holat, verbose_name='Завершено')
 
     def __str__(self):
         return f'{self.home } vs { self.guest}'
@@ -101,17 +105,17 @@ class Game(models.Model):
         verbose_name_plural = 'Отчет о матчи'
 
 
-class InfoMatch(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='infomatch_game')
-    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='infomatch_player')
-    date = models.DateField(verbose_name='Время гола')
-    goal_point = models.IntegerField(null=True, blank=True)
-    red_card = models.IntegerField(null=True, blank=True)
-    yellow_card = models.IntegerField(null=True, blank=True)
-    player_command = models.ForeignKey(Club, on_delete=models.CASCADE)
+# class InfoMatch(models.Model):
+#     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='infomatch_game')
+#     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='infomatch_player')
+#     date = models.DateField(verbose_name='Время гола')
+#     goal_point = models.IntegerField(null=True, blank=True)
+#     red_card = models.IntegerField(null=True, blank=True)
+#     yellow_card = models.IntegerField(null=True, blank=True)
+#     player_command = models.ForeignKey(Club, on_delete=models.CASCADE)
       
-    def __str__(self):
-        return f'{self.game.tour.home.name } vs {self.game.tour.guest.name}'
+#     def __str__(self):
+#         return f'{self.game.tour.home.name } vs {self.game.tour.guest.name}'
 
 
 class AboutPlayer(models.Model):
