@@ -148,3 +148,30 @@ class News(models.Model):
     class Meta:
         verbose_name = 'Новости'
         verbose_name_plural = 'Новости'
+
+
+class GoalsPlayer(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='plager_goal')
+    goals = models.IntegerField(null=True, blank=True)
+
+
+    def __str__(self) -> str:
+        return self.player.first_name
+
+
+class RedCardsPlayer(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='red_cards')
+    counts = models.IntegerField(null=True, blank=True)
+    
+
+    def __str__(self) -> str:
+        return self.player.first_name
+
+class YellowCardsPlayer(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='yellow_cards')
+    counts = models.IntegerField(null=True, blank=True)
+    
+
+    def __str__(self) -> str:
+        return self.player.first_name
+

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import News, Player, Club, TournamentTable, Matches, Game, AboutPlayer #InfoMatch
+from .models import News, Player, Club, TournamentTable, Matches, Game, AboutPlayer, GoalsPlayer,YellowCardsPlayer,RedCardsPlayer
 
 
 # Register your models here.
@@ -46,6 +46,51 @@ class PlayerAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'club',  'last_name', 'numb')
     list_display_links = ('first_name','club',  'numb')
 
+@admin.register(GoalsPlayer)
+class GoalsPlayerAdmin(admin.ModelAdmin):
+    list_display = ('get_author_name', 'goals_count', 'get_author_club_name')
+    list_display_links = list_display
+
+    @admin.display(description='Author Name')
+    def get_author_name(self, obj):
+        return obj.player.first_name
+    @admin.display(description='Author lastname')
+    def goals_count(self, obj):
+        return obj.goals
+    @admin.display(description='Club Name')
+    def get_author_club_name(self, obj):
+        return obj.player.club.name
+
+
+@admin.register(RedCardsPlayer)
+class RedCardsPlayerAdmin(admin.ModelAdmin):
+    list_display = ('get_author_name', 'redcard_count', 'get_author_club_name')
+    list_display_links = list_display
+
+    @admin.display(description='Author Name')
+    def get_author_name(self, obj):
+        return obj.player.first_name
+    @admin.display(description='Author lastname')
+    def redcard_count(self, obj):
+        return obj.counts
+    @admin.display(description='Club Name')
+    def get_author_club_name(self, obj):
+        return obj.player.club.name
+
+@admin.register(YellowCardsPlayer)
+class YellowCardsPlayerAdmin(admin.ModelAdmin):
+    list_display = ('get_author_name', 'yellowcard_count', 'get_author_club_name')
+    list_display_links = list_display
+
+    @admin.display(description='Author Name')
+    def get_author_name(self, obj):
+        return obj.player.first_name
+    @admin.display(description='Author lastname')
+    def yellowcard_count(self, obj):
+        return obj.counts
+    @admin.display(description='Club Name')
+    def get_author_club_name(self, obj):
+        return obj.player.club.name
 
 class GameInline(admin.StackedInline):
     model = Game

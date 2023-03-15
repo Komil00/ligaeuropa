@@ -1,9 +1,11 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets ,permissions
-from .models import Matches, TournamentTable, AboutPlayer, Game, News
+from .models import Matches, TournamentTable, AboutPlayer, Game, News,\
+      GoalsPlayer, YellowCardsPlayer,RedCardsPlayer
 from .serializers import MatchesListSerializer, TournamentTableSerializer,\
       AboutPlayerSerializers, GameListSerializer,\
-      NewsPutDeleteSerializer, NewsListSerializers
+      NewsPutDeleteSerializer, NewsListSerializers, GoalsPlayerSerializers,\
+      RedCardsPlayerSerializers,YellowCardsPlayerSerializers
 
 
 class MatchesViewSet(viewsets.ModelViewSet):
@@ -47,3 +49,18 @@ class NewsViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = [permissions.IsAdminUser]
         return [permission() for permission in permission_classes]
+
+class GoalsViewSet(viewsets.ModelViewSet):
+    queryset = GoalsPlayer.objects.all()
+    serializer_class = GoalsPlayerSerializers
+    http_method_names = ('get')
+
+class RedCardsViewSet(viewsets.ModelViewSet):
+    queryset = RedCardsPlayer.objects.all()
+    serializer_class = RedCardsPlayerSerializers
+    http_method_names = ('get')
+
+class YellowCardsViewSet(viewsets.ModelViewSet):
+    queryset = YellowCardsPlayer.objects.all()
+    serializer_class = YellowCardsPlayerSerializers
+    http_method_names = ('get')

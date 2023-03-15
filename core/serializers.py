@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import Matches, Club, News, TournamentTable, Game, AboutPlayer, Player
+from .models import Matches, Club, News, TournamentTable,\
+      Game, AboutPlayer, Player,\
+      GoalsPlayer,RedCardsPlayer,YellowCardsPlayer
 
 
 class ClubForTourListSerializer(serializers.ModelSerializer):
@@ -90,7 +92,7 @@ class ClubForInfoListSerializer(serializers.ModelSerializer):
 
 
 # class InfoMatchSerializers(serializers.ModelSerializer):
-#     player = PlayerPlayerGoalSerializers()
+    # player = PlayerPlayerGoalSerializers()
 #     game = GamePlayerGoalSerializer()
 #     player_command = ClubForInfoListSerializer()
 
@@ -114,3 +116,36 @@ class NewsListSerializers(serializers.ModelSerializer):
     class Meta:
         model = News
         fields = '__all__'
+
+class GoalsPlayerClubSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Club
+        fields = ['name', 'icon']
+
+class PlayerforSerializers(serializers.ModelSerializer):
+    club = GoalsPlayerClubSerializer()
+    class Meta:
+        model = Player
+        fields = ['first_name', 'last_name', 'image' , 'club']
+        depth = 1
+
+class GoalsPlayerSerializers(serializers.ModelSerializer):
+    player = PlayerforSerializers()
+
+    class Meta:
+        model = GoalsPlayer
+        fields = ['player', 'goals']
+
+class RedCardsPlayerSerializers(serializers.ModelSerializer):
+    player = PlayerforSerializers()
+
+    class Meta:
+        model = RedCardsPlayer
+        fields = ['player', 'counts']
+
+class YellowCardsPlayerSerializers(serializers.ModelSerializer):
+    player = PlayerforSerializers()
+
+    class Meta:
+        model = YellowCardsPlayer
+        fields = ['player', 'counts']
