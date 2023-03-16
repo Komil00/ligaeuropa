@@ -154,18 +154,23 @@ class GoalsPlayer(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='plager_goal')
     goals = models.IntegerField(null=True, blank=True)
 
-
     def __str__(self) -> str:
         return self.player.first_name
+    
+    class Meta:
+        verbose_name = 'Бомбордиры'
+        verbose_name_plural = 'Бомбордиры'
 
 
 class RedCardsPlayer(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='red_cards')
     counts = models.IntegerField(null=True, blank=True)
     
-
     def __str__(self) -> str:
         return self.player.first_name
+    class Meta:
+        verbose_name = 'Красные карточки'
+        verbose_name_plural = 'Красные карточки'
 
 class YellowCardsPlayer(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='yellow_cards')
@@ -174,4 +179,8 @@ class YellowCardsPlayer(models.Model):
 
     def __str__(self) -> str:
         return self.player.first_name
+
+    class Meta:
+        verbose_name = 'Желтые карточки'
+        verbose_name_plural = 'Желтые карточки'
 
