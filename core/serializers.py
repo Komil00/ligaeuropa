@@ -134,7 +134,7 @@ class GoalsPlayerSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = GoalsPlayer
-        fields = ['player', 'goals']
+        fields = ['id', 'player', 'goals']
 
 class RedCardsPlayerSerializers(serializers.ModelSerializer):
     player = PlayerforSerializers()

@@ -20,7 +20,7 @@ class Player(models.Model):
     first_name = models.CharField(max_length=70, verbose_name='Имя игрока')
     last_name = models.CharField(max_length=70, verbose_name='Фамилия игрока')
     numb = models.PositiveSmallIntegerField(verbose_name='Номер игрока')
-    gif = models.FileField( upload_to='media/gif', verbose_name='Gif игрока')
+    gif = models.FileField(null=True,blank=True, upload_to='media/gif', verbose_name='Gif игрока')
     image = models.ImageField( upload_to='media/image', blank=True, null=True, verbose_name='Фото игрока')
     like = models.BooleanField(null=True, blank=True)
     dislike = models.BooleanField(null=True, blank=True)
