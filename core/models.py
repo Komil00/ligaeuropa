@@ -73,8 +73,8 @@ Holat = (
 )
 class Matches(models.Model):
     tour = models.PositiveSmallIntegerField(verbose_name='Тур', null=True)
-    home = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name='Хозяева', related_name='home')
-    guest = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name="Гости")
+    home = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name='Хозяева', related_name='home', blank=True)
+    guest = models.ForeignKey(Club, on_delete=models.SET_NULL, null=True, verbose_name="Гости", blank=True)
     date = models.DateField(blank=True, null=True, verbose_name="Дата")
     finished = models.CharField(max_length=30, choices=Holat, verbose_name='Завершено')
 
