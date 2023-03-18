@@ -78,8 +78,8 @@ class Matches(models.Model):
     date = models.DateField(blank=True, null=True, verbose_name="Дата")
     finished = models.CharField(max_length=30, choices=Holat, verbose_name='Завершено')
 
-    def __str__(self):
-        return f'{self.home } vs { self.guest}'
+    # def __str__(self):
+    #     return f'{self.home } vs { self.guest}'
     
     class Meta:
         verbose_name = 'Матч'
