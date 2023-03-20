@@ -21,7 +21,7 @@ class Player(models.Model):
     last_name = models.CharField(max_length=70, verbose_name='Фамилия игрока')
     numb = models.PositiveSmallIntegerField(verbose_name='Номер игрока')
     gif = models.FileField(null=True,blank=True, upload_to='media/gif', verbose_name='Gif игрока')
-    image = models.ImageField( upload_to='media/image', blank=True, null=True, verbose_name='Фото игрока')
+    image = models.ImageField( upload_to='media/image', verbose_name='Фото игрока')
     like = models.BooleanField(null=True, blank=True)
     dislike = models.BooleanField(null=True, blank=True)
 
@@ -73,8 +73,8 @@ Holat = (
 )
 class Matches(models.Model):
     tour = models.PositiveSmallIntegerField(verbose_name='Тур', null=True)
-    home = models.ForeignKey(Club, on_delete=models.CASCADE, null=True,blank=True, verbose_name='Хозяева', related_name='home')
-    guest = models.ForeignKey(Club, on_delete=models.CASCADE,null=True,blank=True, verbose_name="Гости")
+    home = models.ForeignKey(Club, on_delete=models.CASCADE, verbose_name='Хозяева', related_name='home')
+    guest = models.ForeignKey(Club, on_delete=models.CASCADE, verbose_name="Гости")
     date = models.DateField(blank=True, null=True, verbose_name="Дата")
     finished = models.CharField(max_length=30, choices=Holat, verbose_name='Завершено')
 
@@ -89,7 +89,7 @@ class Matches(models.Model):
 
 
 class Game(models.Model):
-    tour = models.ForeignKey(Matches, on_delete=models.CASCADE, null=True, related_name='details')
+    tour = models.ForeignKey(Matches, on_delete=models.CASCADE, related_name='details')
     home_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет хозяев')
     guest_point = models.PositiveSmallIntegerField(default=0, verbose_name='Счет гостей')
     link = models.CharField(max_length=255, blank=True, null=True)
