@@ -16,7 +16,7 @@ class Club(models.Model):
 
 
 class Player(models.Model):
-    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE, related_name='palyer_club')
     first_name = models.CharField(max_length=70, verbose_name='Имя игрока')
     last_name = models.CharField(max_length=70, verbose_name='Фамилия игрока')
     numb = models.PositiveSmallIntegerField(verbose_name='Номер игрока')

@@ -51,16 +51,16 @@ class NewsViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
 class GoalsViewSet(viewsets.ModelViewSet):
-    queryset = GoalsPlayer.objects.all()
+    queryset = GoalsPlayer.objects.all().order_by('-counts')
     serializer_class = GoalsPlayerSerializers
     http_method_names = ('get')
 
 class RedCardsViewSet(viewsets.ModelViewSet):
-    queryset = RedCardsPlayer.objects.all()
+    queryset = RedCardsPlayer.objects.all().order_by('-counts')
     serializer_class = RedCardsPlayerSerializers
     http_method_names = ('get')
 
 class YellowCardsViewSet(viewsets.ModelViewSet):
-    queryset = YellowCardsPlayer.objects.all()
+    queryset = YellowCardsPlayer.objects.all().order_by('-counts')
     serializer_class = YellowCardsPlayerSerializers
     http_method_names = ('get')
