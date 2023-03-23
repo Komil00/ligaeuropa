@@ -56,7 +56,7 @@ class GoalsViewSet(viewsets.ModelViewSet):
     http_method_names = ('get')
 
 class RedCardsViewSet(viewsets.ModelViewSet):
-    queryset = RedCardsPlayer.objects.all().order_by('-counts')
+    queryset = RedCardsPlayer.objects.all().order_by('counts')
     serializer_class = RedCardsPlayerSerializers
     http_method_names = ('get')
 
