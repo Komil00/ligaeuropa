@@ -48,15 +48,15 @@ class PlayerAdmin(admin.ModelAdmin):
 
 @admin.register(GoalsPlayer)
 class GoalsPlayerAdmin(admin.ModelAdmin):
-    list_display = ('get_author_name', 'goals_count', 'get_author_club_name')
+    list_display = ('id', 'get_author_name', 'counts', 'get_author_club_name')
     list_display_links = list_display
 
     @admin.display(description='Author Name')
     def get_author_name(self, obj):
         return obj.player.first_name
     @admin.display(description='Author lastname')
-    def goals_count(self, obj):
-        return obj.goals
+    def counts(self, obj):
+        return obj.counts
     @admin.display(description='Club Name')
     def get_author_club_name(self, obj):
         return obj.player.club.name
@@ -64,7 +64,7 @@ class GoalsPlayerAdmin(admin.ModelAdmin):
 
 @admin.register(RedCardsPlayer)
 class RedCardsPlayerAdmin(admin.ModelAdmin):
-    list_display = ('get_author_name', 'redcard_count', 'get_author_club_name')
+    list_display = ('id', 'get_author_name', 'redcard_count', 'get_author_club_name')
     list_display_links = list_display
 
     @admin.display(description='Author Name')
@@ -79,7 +79,7 @@ class RedCardsPlayerAdmin(admin.ModelAdmin):
 
 @admin.register(YellowCardsPlayer)
 class YellowCardsPlayerAdmin(admin.ModelAdmin):
-    list_display = ('get_author_name', 'yellowcard_count', 'get_author_club_name')
+    list_display = ('id', 'get_author_name', 'yellowcard_count', 'get_author_club_name')
     list_display_links = list_display
 
     @admin.display(description='Author Name')

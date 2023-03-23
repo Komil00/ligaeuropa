@@ -152,7 +152,7 @@ class News(models.Model):
 
 class GoalsPlayer(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='plager_goal')
-    goals = models.IntegerField(null=True, blank=True)
+    counts = models.IntegerField(null=True, blank=True)
 
     def __str__(self) -> str:
         return self.player.first_name
