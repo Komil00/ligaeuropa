@@ -46,51 +46,51 @@ class PlayerAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'club',  'last_name', 'numb')
     list_display_links = ('first_name','club',  'numb')
 
-@admin.register(GoalsPlayer)
-class GoalsPlayerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'get_author_name', 'counts', 'get_author_club_name')
-    list_display_links = list_display
+# @admin.register(GoalsPlayer)
+# class GoalsPlayerAdmin(admin.ModelAdmin):
+#     list_display = ('id', 'get_author_name', 'counts', 'get_author_club_name')
+#     list_display_links = list_display
 
-    @admin.display(description='Author Name')
-    def get_author_name(self, obj):
-        return obj.player.first_name
-    @admin.display(description='Author lastname')
-    def counts(self, obj):
-        return obj.counts
-    @admin.display(description='Club Name')
-    def get_author_club_name(self, obj):
-        return obj.player.club.name
+#     @admin.display(description='Author Name')
+#     def get_author_name(self, obj):
+#         return obj.player.first_name
+#     @admin.display(description='Author lastname')
+#     def counts(self, obj):
+#         return obj.counts
+#     @admin.display(description='Club Name')
+#     def get_author_club_name(self, obj):
+#         return obj.player.club.name
 
 
-@admin.register(RedCardsPlayer)
-class RedCardsPlayerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'get_author_name', 'redcard_count', 'get_author_club_name')
-    list_display_links = list_display
+# @admin.register(RedCardsPlayer)
+# class RedCardsPlayerAdmin(admin.ModelAdmin):
+#     list_display = ('id', 'get_author_name', 'redcard_count', 'get_author_club_name')
+#     list_display_links = list_display
 
-    @admin.display(description='Author Name')
-    def get_author_name(self, obj):
-        return obj.player.first_name
-    @admin.display(description='Author lastname')
-    def redcard_count(self, obj):
-        return obj.counts
-    @admin.display(description='Club Name')
-    def get_author_club_name(self, obj):
-        return obj.player.club.name
+#     @admin.display(description='Author Name')
+#     def get_author_name(self, obj):
+#         return obj.player.first_name
+#     @admin.display(description='Author lastname')
+#     def redcard_count(self, obj):
+#         return obj.counts
+#     @admin.display(description='Club Name')
+#     def get_author_club_name(self, obj):
+#         return obj.player.club.name
 
-@admin.register(YellowCardsPlayer)
-class YellowCardsPlayerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'get_author_name', 'yellowcard_count', 'get_author_club_name')
-    list_display_links = list_display
+# @admin.register(YellowCardsPlayer)
+# class YellowCardsPlayerAdmin(admin.ModelAdmin):
+#     list_display = ('id', 'get_author_name', 'yellowcard_count', 'get_author_club_name')
+#     list_display_links = list_display
 
-    @admin.display(description='Author Name')
-    def get_author_name(self, obj):
-        return obj.player.first_name
-    @admin.display(description='Author lastname')
-    def yellowcard_count(self, obj):
-        return obj.counts
-    @admin.display(description='Club Name')
-    def get_author_club_name(self, obj):
-        return obj.player.club.name
+#     @admin.display(description='Author Name')
+#     def get_author_name(self, obj):
+#         return obj.player.first_name
+#     @admin.display(description='Author lastname')
+#     def yellowcard_count(self, obj):
+#         return obj.counts
+#     @admin.display(description='Club Name')
+#     def get_author_club_name(self, obj):
+#         return obj.player.club.name
 
 class GameInline(admin.StackedInline):
     model = Game

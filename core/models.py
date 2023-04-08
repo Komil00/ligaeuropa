@@ -191,3 +191,11 @@ class YellowCardsPlayer(models.Model):
         verbose_name = 'Желтые карточки'
         verbose_name_plural = 'Желтые карточки'
 
+
+
+# class Test(models.Model):
+#     a_javob = models.CharField(max_length=500)
+#     b_javob = models.CharField(max_length=500)
+#     c_javob = models.CharField(max_length=500)
+#     d_javob = models.CharField(max_length=500)
+#     tugri_javob = models.CharField(max_length=500)
