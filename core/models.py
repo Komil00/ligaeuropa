@@ -22,8 +22,8 @@ class Player(models.Model):
     numb = models.PositiveSmallIntegerField(verbose_name='Номер игрока')
     gif = models.FileField(null=True,blank=True, upload_to='media/gif', verbose_name='Gif игрока')
     image = models.ImageField( upload_to='media/image', verbose_name='Фото игрока')
-    like = models.BooleanField(null=True, blank=True)
-    dislike = models.BooleanField(null=True, blank=True)
+    like = models.IntegerField(null=True, blank=True)
+    # dislike = models.BooleanField(null=True, blank=True)
 
 
 
@@ -104,19 +104,19 @@ class Game(models.Model):
         verbose_name = 'Отчет о матче'
         verbose_name_plural = 'Отчет о матчи'
 
+class News(models.Model):
+    image = models.ImageField(upload_to='media/images/')
+    title = models.CharField(max_length=500)
+    info = models.TextField()
+    interview_author = models.CharField(max_length=300)
+    date = models.DateField()
 
-# class InfoMatch(models.Model):
-#     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='infomatch_game')
-#     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='infomatch_player')
-#     date = models.DateField(verbose_name='Время гола')
-#     goal_point = models.IntegerField(null=True, blank=True)
-#     red_card = models.IntegerField(null=True, blank=True)
-#     yellow_card = models.IntegerField(null=True, blank=True)
-#     player_command = models.ForeignKey(Club, on_delete=models.CASCADE)
-      
-#     def __str__(self):
-#         return f'{self.game.tour.home.name } vs {self.game.tour.guest.name}'
+    def __str__(self):
+        return self.title
 
+    class Meta:
+        verbose_name = 'Новости'
+        verbose_name_plural = 'Новости'
 
 class AboutPlayer(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE)
@@ -135,24 +135,17 @@ class AboutPlayer(models.Model):
         verbose_name = 'Об игроке'
         verbose_name_plural = 'Об игроке'
 
-class News(models.Model):
-    image = models.ImageField(upload_to='media/images/')
-    title = models.CharField(max_length=500)
-    info = models.TextField()
-    interview_author = models.CharField(max_length=300)
-    date = models.DateField()
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = 'Новости'
-        verbose_name_plural = 'Новости'
-
 
 class GoalsPlayer(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='plager_goal')
     counts = models.IntegerField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+            player = self.player
+            about_player = AboutPlayer.objects.get(player=player)
+            about_player.goals = self.counts
+            about_player.save()
+            super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.player.first_name
@@ -168,6 +161,14 @@ class RedCardsPlayer(models.Model):
     
     def __str__(self) -> str:
         return self.player.first_name
+    
+    def save(self, *args, **kwargs):
+        player = self.player
+        about_player = AboutPlayer.objects.get(player=player)
+        about_player.red_cards = self.counts
+        about_player.save()
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'Красные карточки'
         verbose_name_plural = 'Красные карточки'
@@ -176,6 +177,12 @@ class YellowCardsPlayer(models.Model):
     player = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='yellow_cards')
     counts = models.IntegerField(null=True, blank=True)
     
+    def save(self, *args, **kwargs):
+        player = self.player
+        about_player = AboutPlayer.objects.get(player=player)
+        about_player.yellow_cards = self.counts
+        about_player.save()
+        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.player.first_name
