@@ -1,8 +1,17 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import News, Player, Club, TournamentTable, Matches, Game, AboutPlayer, GoalsPlayer,YellowCardsPlayer,RedCardsPlayer
+from .models import News, Player, Club, TournamentTable, Matches,\
+      Game, AboutPlayer, GoalsPlayer,\
+        YellowCardsPlayer,RedCardsPlayer,Like
+            #   Subject, Question, TestBought, Test, UserAnswer, TestResult
 
+# admin.site.register(Subject)
+# admin.site.register(Test)
+# admin.site.register(Question)
+# admin.site.register(TestBought)
+# admin.site.register(UserAnswer)
+# admin.site.register(TestResult)
 
 # Register your models here.
 
@@ -10,6 +19,7 @@ from .models import News, Player, Club, TournamentTable, Matches, Game, AboutPla
 
 class PlayerInline(admin.StackedInline):
     model = Player
+    max_num = 12
     extra = 0
 
     def image_tag(self, obj):
@@ -119,7 +129,7 @@ class GameAdmin(admin.ModelAdmin):
     search_fields = ['tour']
     list_filter = ['tour']
 
-# admin.site.register(InfoMatch)
+admin.site.register(Like)
 
 @admin.register(AboutPlayer)
 class AboutPlayerAdmin(admin.ModelAdmin):

@@ -185,3 +185,38 @@
 # # выводим тип данных каждого элемента
 # for item in my_tuple:
 #     print("Элемент", item, "имеет тип данных", type(item))
+
+# for i in range(10):
+#     a=pow(i,i)
+# with open('readme.txt') as books:
+#     lines = books.readlines()
+#     print(lines)
+# lines.sort()
+# with open('readme.txt', 'w') as sortedbooks:
+#     sortedbooks.writelines(lines)
+# # open('readme.txt', 'w').write(f'\n{a}')
+
+
+# import RPi.GPIO as GPIO
+# import time
+
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(18, GPIO.OUT)
+
+# while True:
+#     GPIO.output(18, True)
+#     time.sleep(1)
+#     GPIO.output(18, False)
+#     time.sleep(1)
+
+# pow(x,2
+# import math
+# print(math.sqrt(4))
+# print('komil tursunboy')
+
+# import shutil
+# free_b = shutil.disk_usage('.')
+# gb = pow(2,10)
+# print(int(format(free_b))/gb)
+# print(gb)
+

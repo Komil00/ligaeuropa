@@ -1,10 +1,22 @@
 from rest_framework import serializers
 from .models import Matches, Club, News, TournamentTable,\
       Game, AboutPlayer, Player,\
-      GoalsPlayer,RedCardsPlayer,YellowCardsPlayer
+      GoalsPlayer,RedCardsPlayer,YellowCardsPlayer,\
+      Seasson, Trophey, Like
 
+class SeassonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Seasson
+        fields = '__all__'
+
+class TropheySerializer(serializers.ModelSerializer):
+    seasson = SeassonSerializer(read_only = True)
+    class Meta:
+        model = Trophey
+        fields = '__all__'
 
 class ClubForTourListSerializer(serializers.ModelSerializer):
+    trophey = TropheySerializer(read_only = True)
     class Meta:
         model = Club
         fields = '__all__'
@@ -68,6 +80,11 @@ class PlayerSerializers(serializers.ModelSerializer):
     class Meta:
         model = Player
         fields = '__all__'
+
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = ['id', 'aboutplayer', 'is_like']
 
 class AboutPlayerSerializers(serializers.ModelSerializer):
     player = PlayerSerializers()

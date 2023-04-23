@@ -1,11 +1,13 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets ,permissions
+from rest_framework import viewsets ,permissions, status
 from .models import Matches, TournamentTable, AboutPlayer, Game, News,\
-      GoalsPlayer, YellowCardsPlayer,RedCardsPlayer
+      GoalsPlayer, YellowCardsPlayer,RedCardsPlayer, Like
 from .serializers import MatchesListSerializer, TournamentTableSerializer,\
       AboutPlayerSerializers, GameListSerializer,\
       NewsPutDeleteSerializer, NewsListSerializers, GoalsPlayerSerializers,\
-      RedCardsPlayerSerializers,YellowCardsPlayerSerializers
+      RedCardsPlayerSerializers,YellowCardsPlayerSerializers, LikeSerializer
+from rest_framework.response import Response
+from rest_framework.decorators import action
 
 
 class MatchesViewSet(viewsets.ModelViewSet):
@@ -25,6 +27,7 @@ class AboutPlayerViewSet(viewsets.ModelViewSet):
     queryset = AboutPlayer.objects.all()
     serializer_class = AboutPlayerSerializers
     http_method_names = ('get')
+
 
 class GamesViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
@@ -64,3 +67,20 @@ class YellowCardsViewSet(viewsets.ModelViewSet):
     queryset = YellowCardsPlayer.objects.all().order_by('-counts')
     serializer_class = YellowCardsPlayerSerializers
     http_method_names = ('get')
+
+
+
+class LikeViewSet(viewsets.ViewSet):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = LikeSerializer(data=request.data)
+        aboutplayer = AboutPlayer.objects.get(id=request.data['aboutplayer'])
+        forlike = request.data['is_like']
+        if forlike:
+            aboutplayer.likes_count =int(aboutplayer.likes_count) + 1
+        serializer.is_valid(raise_exception=True)
+        aboutplayer.save()
+        serializer.save()
+        return Response(status=status.HTTP_201_CREATED)
