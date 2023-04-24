@@ -77,7 +77,7 @@ class LikeViewSet(viewsets.ViewSet):
     def create(self, request, *args, **kwargs):
         serializer = LikeSerializer(data=request.data)
         aboutplayer = AboutPlayer.objects.get(id=request.data['aboutplayer'])
-        forlike = request.data['is_like']
+        forlike = request.POST.get('is_like', False)
         if forlike:
             if aboutplayer.likes_count==None:
                 aboutplayer.likes_count=0
@@ -85,6 +85,7 @@ class LikeViewSet(viewsets.ViewSet):
                 aboutplayer.likes_count =int(aboutplayer.likes_count) + 1
             else:
                 aboutplayer.likes_count =int(aboutplayer.likes_count) + 1
+
         serializer.is_valid(raise_exception=True)
         aboutplayer.save()
         serializer.save()
