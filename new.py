@@ -220,3 +220,29 @@
 # print(int(format(free_b))/gb)
 # print(gb)
 
+
+#gunicorn
+
+[program:gunicorn]
+directory=/home/ubuntu/ligaeuropa/liga/
+command=/home/ubuntu/venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/ligaeuropa/liga/app.sock liga.wsgi:application
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/gunicorn/gunicorn.err.log
+stdout_logfile=/var/log/gunicorn/gunicorn.out.log
+
+[group:guni]
+programs:gunicorn
+
+
+#django.conf in nginx
+server{
+        listen 80;
+        server_name 52.15.112.74;
+
+        location / {
+                include proxy_params;
+                proxy_pass http://unix:/home/ubuntu/liga/app.sock;
+
+        }
+}

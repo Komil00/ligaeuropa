@@ -1,11 +1,12 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets ,permissions, status
-from .models import Matches, TournamentTable, AboutPlayer, Game, News,\
+from .models import Club, Matches, TournamentTable, AboutPlayer, Game, News,\
       GoalsPlayer, YellowCardsPlayer,RedCardsPlayer, Like
 from .serializers import MatchesListSerializer, TournamentTableSerializer,\
       AboutPlayerSerializers, GameListSerializer,\
       NewsPutDeleteSerializer, NewsListSerializers, GoalsPlayerSerializers,\
-      RedCardsPlayerSerializers,YellowCardsPlayerSerializers, LikeSerializer
+      RedCardsPlayerSerializers,YellowCardsPlayerSerializers, LikeSerializer,\
+      ForClubSerializers
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
@@ -90,3 +91,9 @@ class LikeViewSet(viewsets.ViewSet):
         aboutplayer.save()
         serializer.save()
         return Response(status=status.HTTP_201_CREATED)
+    
+
+class ClubViewSet(viewsets.ModelViewSet):
+    queryset = Club.objects.all()
+    serializer_class = ForClubSerializers
+    http_method_names = ('get')

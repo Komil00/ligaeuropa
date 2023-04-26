@@ -166,3 +166,10 @@ class YellowCardsPlayerSerializers(serializers.ModelSerializer):
     class Meta:
         model = YellowCardsPlayer
         fields = ['id', 'player', 'counts']
+
+
+class ForClubSerializers(serializers.ModelSerializer):
+    trophey = TropheySerializer(read_only = True)
+    class Meta:
+        model = Club
+        fields = '__all__'

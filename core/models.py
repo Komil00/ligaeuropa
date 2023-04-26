@@ -14,11 +14,15 @@ KubokChoice = (
 class Seasson(models.Model):
     chempionat = models.IntegerField()
     kubok = models.CharField(max_length=200, choices=KubokChoice)
-    
+    # def __str__(self):
+    #     return self.chempionat
 
 class Trophey(models.Model):
+    name = models.CharField(max_length=200, null=True)
     seasson = models.ForeignKey(Seasson, models.CASCADE)
-
+    
+    def __str__(self):
+        return self.name
 
 class Club(models.Model):
     name = models.CharField(max_length=50, verbose_name='Клуб')

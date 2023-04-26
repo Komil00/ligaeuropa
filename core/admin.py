@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import News, Player, Club, TournamentTable, Matches,\
+from .models import News, Player, Club, Seasson, TournamentTable, Matches,\
       Game, AboutPlayer, GoalsPlayer,\
-        YellowCardsPlayer,RedCardsPlayer,Like
+        YellowCardsPlayer,RedCardsPlayer,Like, Trophey
             #   Subject, Question, TestBought, Test, UserAnswer, TestResult
 
 # admin.site.register(Subject)
@@ -29,12 +29,15 @@ class PlayerInline(admin.StackedInline):
 
     image_tag.short_description = 'Фото игрока'
 
+admin.site.register(Seasson)
+admin.site.register(Trophey)
+
 
 @admin.register(Club)
 class ClubAdmin(admin.ModelAdmin):
     list_display = ('name', 'image_tag', 'player_count')
     list_display_links = ('name',)
-    inlines = [PlayerInline, ]
+    inlines = [PlayerInline]
 
     def image_tag(self, obj):
         from django.utils.html import format_html
@@ -161,3 +164,6 @@ class NewsAdmin(admin.ModelAdmin):
         return ''
 
     image_tag.short_description = 'Фото'
+
+
+    
