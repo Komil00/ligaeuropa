@@ -132,7 +132,7 @@ class GameAdmin(admin.ModelAdmin):
     search_fields = ['tour']
     list_filter = ['tour']
 
-admin.site.register(Like)
+# admin.site.register(Like)
 
 @admin.register(AboutPlayer)
 class AboutPlayerAdmin(admin.ModelAdmin):

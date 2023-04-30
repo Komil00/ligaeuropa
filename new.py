@@ -246,3 +246,54 @@ server{
 
         }
 }
+
+
+#apache2
+
+Alias /static /home/ubuntu/Demo/ligaeuropa/static
+
+<Directory /home/ubuntu/Demo/ligaeuropa/static>
+        Require all granted
+</Directory>
+
+<Directory /home/ubuntu/Demo/ligaeuropa/liga>
+        <Files wsgi.py>
+                Require all granted
+        </Files>
+</Directory>
+
+WSGIPassAuthorization On
+WSGIDaemonProcess ligaeuropa python-path=/home/ubuntu/Demo/ligaeuropa/ python-home=/home/ubuntu/Demo/demo_env
+WSGIProcessGroup ligaeuropa
+
+WSGIScriptAlias / /home/ubuntu/Demo/ligaeuropa/liga/wsgi.py
+
+
+
+#/etc/systemd/system/gunicorn.service
+
+[Unit]
+Description=gunicorn socket
+
+[Socket]
+ListenStream=/run/gunicorn.sock
+
+[Install]
+WantedBy=sockets.target
+
+
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/ligaeuropa
+ExecStart=/home/ubuntu/ligaeuropa/env/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn.sock \
+          liga.wsgi:application
+[Install]
+WantedBy=multi-user.target
