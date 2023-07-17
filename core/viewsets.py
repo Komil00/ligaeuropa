@@ -20,7 +20,7 @@ class MatchesViewSet(viewsets.ModelViewSet):
 
 
 class TournamentTableViewSet(viewsets.ModelViewSet):
-    queryset = TournamentTable.objects.all().order_by('-point')
+    queryset = TournamentTable.objects.all().order_by('-point', '-goals')
     serializer_class = TournamentTableSerializer
     http_method_names = ('get', )
 
